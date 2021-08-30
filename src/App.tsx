@@ -50,10 +50,11 @@ function App() {
 
 function MultisigPage() {
   const { hash } = window.location;
-  if (hash) {
-    window.location.href = `/#/${networks.mainnet.multisigUpgradeAuthority!.toString()}`;
+  const net = networks.rpcpool;
+  if (hash && net.multisigUpgradeAuthority) {
+    window.location.href = `/#/${net.multisigUpgradeAuthority!.toString()}`;
   }
-  const multisig = networks.mainnet.multisigUpgradeAuthority;
+  const multisig = net.multisigUpgradeAuthority;
   return <Multisig multisig={multisig} />;
 }
 

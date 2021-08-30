@@ -54,20 +54,44 @@ export type CommonState = {
 export const networks: Networks = {
   mainnet: {
     // Cluster.
-    label: "Mainnet Beta",
+    label: "Serum Mainnet Beta",
     url: "https://solana-api.projectserum.com",
     explorerClusterSuffix: "",
     multisigProgramId: new PublicKey(
       "A9HAbnCwoD6f2NkZobKFf6buJoN9gUVVvX5PoUnDHS6u"
     ),
     multisigUpgradeAuthority: new PublicKey(
-      "3uztpEgUmvirDBYRXgDamUDZiU5EcgTwArQ2pULtHJPC"
+      "GZXtZrRTaazATgJpWKReqUEYE6L2CSQRHkFnXQDPA2vD"
+    ),
+  },
+  solanaapi: {
+    // Cluster.
+    label: "Mainnet Beta",
+    url: "https://api.mainnet-beta.solana.com",
+    explorerClusterSuffix: "",
+    multisigProgramId: new PublicKey(
+      "A9HAbnCwoD6f2NkZobKFf6buJoN9gUVVvX5PoUnDHS6u"
+    ),
+    multisigUpgradeAuthority: new PublicKey(
+      "GZXtZrRTaazATgJpWKReqUEYE6L2CSQRHkFnXQDPA2vD"
+    ),
+  },
+  rpcpool: {
+    // Cluster.
+    label: "Pool Mainnet Beta",
+    url: "https://parrot.rpcpool.com",
+    explorerClusterSuffix: "",
+    multisigProgramId: new PublicKey(
+      "A9HAbnCwoD6f2NkZobKFf6buJoN9gUVVvX5PoUnDHS6u"
+    ),
+    multisigUpgradeAuthority: new PublicKey(
+      "GZXtZrRTaazATgJpWKReqUEYE6L2CSQRHkFnXQDPA2vD"
     ),
   },
   devnet: {
     // Cluster.
     label: "Devnet",
-    url: "https://devnet.solana.com",
+    url: "https://api.devnet.solana.com",
     explorerClusterSuffix: "devnet",
     multisigProgramId: new PublicKey(
       "F3Uf5F61dmht1xuNNNkk3jnzj82TY56vVjVEhZALRkN"
@@ -89,7 +113,7 @@ export const initialState: State = {
   common: {
     isWalletConnected: false,
     walletProvider: "https://www.sollet.io",
-    network: networks.mainnet,
+    network: networks.rpcpool,
   },
 };
 
