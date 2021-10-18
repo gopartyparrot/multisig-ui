@@ -54,6 +54,8 @@ import { ViewTransactionOnExplorerButton } from "./Notification";
 import * as idl from "../utils/idl";
 import { networks } from "../store/reducer";
 
+import { legacyAnchorAll } from "../utils/anchor";
+
 export default function Multisig({ multisig }: { multisig?: PublicKey }) {
   return (
     <div>
@@ -116,9 +118,11 @@ export function MultisigInstance({ multisig }: { multisig: PublicKey }) {
       });
   }, [multisig, multisigClient.account]);
   useEffect(() => {
-    multisigClient.account.transaction.all(multisig.toBuffer()).then((txs) => {
-      setTransactions(txs);
-    });
+    // multisigClient.account.transaction.all(multisig.toBuffer())
+    legacyAnchorAll(multisigClient, 'Transaction', multisig.toBuffer())
+      .then((txs) => {
+        setTransactions(txs);
+      });
   }, [multisigClient.account.transaction, multisig, forceRefresh]);
   useEffect(() => {
     multisigClient.account.multisig
