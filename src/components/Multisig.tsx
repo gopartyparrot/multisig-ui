@@ -52,7 +52,7 @@ import * as anchor from "@project-serum/anchor";
 import { useWallet } from "./WalletProvider";
 import { ViewTransactionOnExplorerButton } from "./Notification";
 import * as idl from "../utils/idl";
-import { networks } from "../store/reducer";
+import { initialState } from "../store/reducer";
 
 export default function Multisig({ multisig }: { multisig?: PublicKey }) {
   return (
@@ -106,7 +106,7 @@ export function MultisigInstance({ multisig }: { multisig: PublicKey }) {
   const [forceRefresh, setForceRefresh] = useState(false);
   useEffect(() => {
     multisigClient.account
-      .multisig(multisig)
+      .multisig.fetch(multisig)
       .then((account: any) => {
         setMultisigAccount(account);
       })
@@ -241,7 +241,7 @@ export function NewMultisigDialog({
   const { enqueueSnackbar } = useSnackbar();
   const [threshold, setThreshold] = useState(2);
   // @ts-ignore
-  const zeroAddr = new PublicKey().toString();
+  const zeroAddr = new PublicKey('11111111111111111111111111111111').toString(); //just any address
   const [participants, setParticipants] = useState([zeroAddr]);
   const _onClose = () => {
     onClose();
@@ -276,6 +276,7 @@ export function NewMultisigDialog({
         accounts: {
           multisig: multisig.publicKey,
           rent: SYSVAR_RENT_PUBKEY,
+          proposer: multisigClient.provider.wallet.publicKey
         },
         signers: [multisig],
         instructions: [
@@ -334,7 +335,7 @@ export function NewMultisigDialog({
             onClick={() => {
               const p = [...participants];
               // @ts-ignore
-              p.push(new PublicKey().toString());
+              p.push(new PublicKey('11111111111111111111111111111111').toString());
               setParticipants(p);
             }}
           >
@@ -685,7 +686,7 @@ function SignerDialog({
         </Typography>
       </DialogTitle>
       <DialogContent style={{ paddingBottom: "16px" }}>
-        {multisig?.equals(networks.mainnet.multisigUpgradeAuthority!) && (
+        {multisig?.equals(initialState.common.network.multisigUpgradeAuthority!) && (
           <DialogContentText>
             This multisig is the upgrade authority for the multisig program
             itself.
@@ -1061,6 +1062,7 @@ function IdlUpgradeListItem({
   );
 }
 
+//FIXME this won't work anymore
 function UpgradeIdlListItemDetails({
   multisig,
   onClose,
@@ -1081,7 +1083,7 @@ function UpgradeIdlListItemDetails({
     });
     const programAddr = new PublicKey(programId as string);
     const bufferAddr = new PublicKey(buffer as string);
-    const idlAddr = await anchor.utils.idlAddress(programAddr);
+    // const idlAddr = await anchor.utils.idlAddress(programAddr);
     const [multisigSigner] = await PublicKey.findProgramAddress(
       [multisig.toBuffer()],
       multisigClient.programId
@@ -1093,14 +1095,14 @@ function UpgradeIdlListItemDetails({
         isWritable: true,
         isSigner: false,
       },
-      { pubkey: idlAddr, isWritable: true, isSigner: false },
+      // { pubkey: idlAddr, isWritable: true, isSigner: false },
       { pubkey: multisigSigner, isWritable: true, isSigner: false },
     ];
     const txSize = 1000; // TODO: tighter bound.
     const transaction = new Account();
     const tx = await multisigClient.rpc.createTransaction(
       programAddr,
-      accs,
+      // accs,
       data,
       {
         accounts: {

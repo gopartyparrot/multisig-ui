@@ -65,27 +65,27 @@ export const networks: Networks = {
     ),
   },
   solanaapi: {
-    // Cluster.
+    //mainnet dev butler
     label: "Mainnet Beta",
     url: "https://api.mainnet-beta.solana.com",
     explorerClusterSuffix: "",
     multisigProgramId: new PublicKey(
-      "A9HAbnCwoD6f2NkZobKFf6buJoN9gUVVvX5PoUnDHS6u"
+      "BUTLnacqLDizkNtsT42sBTU8V8yEhsoQ5Ua1kYeK8Rc"
     ),
     multisigUpgradeAuthority: new PublicKey(
-      "GZXtZrRTaazATgJpWKReqUEYE6L2CSQRHkFnXQDPA2vD"
+      "DGxwJac9TP7fUQsan4UmWAfyZ4UGstiaZRL9FnDWeWaU" //butler test, PDA: iPjLxFuW8NApjwgDrnWJgWZUnQ145Qzqaah51DZiu8a
     ),
   },
   rpcpool: {
-    // Cluster.
-    label: "Pool Mainnet Beta",
+    //mainnet production
+    label: "RPCPool Mainnet",
     url: "https://parrot.rpcpool.com",
     explorerClusterSuffix: "",
     multisigProgramId: new PublicKey(
-      "A9HAbnCwoD6f2NkZobKFf6buJoN9gUVVvX5PoUnDHS6u"
+      "BUTLnacqLDizkNtsT42sBTU8V8yEhsoQ5Ua1kYeK8Rc"
     ),
     multisigUpgradeAuthority: new PublicKey(
-      "GZXtZrRTaazATgJpWKReqUEYE6L2CSQRHkFnXQDPA2vD"
+      "6cZp8BuVieLpRd3dc6ScYwdTntMsxQFAX1ZRDdRCvAPp" //production, PDA: GqKxXbj6LdMKLvfbGjqTxJYmGpLLL7kjLREwbdsGpmsW
     ),
   },
   devnet: {
@@ -94,7 +94,10 @@ export const networks: Networks = {
     url: "https://api.devnet.solana.com",
     explorerClusterSuffix: "devnet",
     multisigProgramId: new PublicKey(
-      "F3Uf5F61dmht1xuNNNkk3jnzj82TY56vVjVEhZALRkN"
+      "BUTLnacqLDizkNtsT42sBTU8V8yEhsoQ5Ua1kYeK8Rc"
+    ),
+    multisigUpgradeAuthority: new PublicKey(
+      "5Qu2zgDiWW4X38qwTxDZ6TayEGypZ48yj2NQ2eBLAApq" //PDA 3kRsqgw1Rneu9DcG5wV49Xn7WFgqztCwidgHGrjKSUND
     ),
   },
   // Fill in with your local cluster addresses.
@@ -113,7 +116,7 @@ export const initialState: State = {
   common: {
     isWalletConnected: false,
     walletProvider: "https://www.sollet.io",
-    network: networks.rpcpool,
+    network: networks.solanaapi,
   },
 };
 

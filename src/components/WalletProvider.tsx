@@ -47,7 +47,7 @@ export default function WalletProvider(
     };
     const connection = new Connection(network.url, opts.preflightCommitment);
     const wallet = new Wallet(walletProvider, network.url);
-    const provider = new Provider(connection, wallet, opts);
+    const provider: any = new Provider(connection, wallet, opts);
 
     const multisigClient = new Program(
       MultisigIdl,
